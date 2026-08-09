@@ -42,7 +42,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtUtil.extractUsername(token);
+            try {
+                username = jwtUtil.extractUsername(token);
+            } catch (Exception e) {
+                // Bad, expired, or malformed token — treat as unauthenticated
+                // and let Spring Security's authorization rules decide
+                // (permitAll routes pass, protected routes get a proper 401).
+                username = null;
+            }
         }
 
         if (username != null &&
