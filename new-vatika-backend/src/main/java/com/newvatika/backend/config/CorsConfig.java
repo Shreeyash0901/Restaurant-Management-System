@@ -19,7 +19,7 @@ public class CorsConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",
-                "https://your-admin-domain.com",
+                "https://restaurant-management-system-virid-delta.vercel.app",
                 "https://your-cafe-domain.com"
         ));
 
